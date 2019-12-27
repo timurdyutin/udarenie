@@ -15,8 +15,8 @@ words = {'алкоголь': 'алкогОль', 'алфавит': 'алфавИ
 'равнО', 'разоружить': 'разоружИть', 'рубчатый': 'рУбчатый', 'сакура': 'сАкура', 'силос': 'сИлос', 'сливовый': 'слИвовый', 'сосредоточение': 'сосредотОчение', 'столяр': 'столЯр', 'телепатия': 'телепАтия', 'трансфер': 'трансфЕр', 'убыть': 'убЫть', 'углубить': 'углубИть', 'удобрить': 'удОбрить', 'украинский': 'украИнский', 'феномен': 'фенОмен', 'фетиш': 'фетИш', 'хвоя': 'хвОя', 'ходатайство': 'ходАтайство', 'ходатайствовать': 'ходАтайствовать', 'хребет': 'хребЕт', 'христианин': 'христианИн', 'цемент': 'цемЕнт', 'центнер': 'цЕнтнер', 'цепочка': 'цепОчка', 'черпать': 'чЕрпать', 'шаровой': 'шаровОй', 'щавель': 'щавЕль', 'экскурс': 'Экскурс', 'эпиграф': 'эпИграф', 'торты': 'тОрты', 'банты': 'бАнты', 'аниме': 'анимЕ', 'воры': 'вОры', 'взята': 'взятА', 'договоры': 'договОры', 'занята': 'занятА', 'кремы': 'крЕмы', 'кремов': 'крЕмов', 'латте': 'лАтте', 'начался': 'началсЯ', 'обняли': 'Обняли', 'средства': 'срЕдства', 'подняли': 'пОдняли', 'шарфы': 
 'шАрфы', 'снята': 'снятА', 'ногтя': 'нОгтя', 'черпая': 'чЕрпая', 'снабжена': 'снабженА', 'лгала': 'лгалА', 'сверлит': 'сверлИт', 'включим': 'включИм', 'прибыла': 'прибылА', 'начавшись': 'начАвшись', 'бомжи': 'бОмжи', 'лекторов': 'лЕкторов', 'продал': 'прОдал', 'вручат': 'вручАт', 'маршмеллоу': 'маршмЕллоу', 'рандомный': 'рандОмный', 'стригу': 'стригУ', 'средствами': 'срЕдствами', 'грунтовы': 'грунтОвы'} 
 vowels = "яёыуаеиоэю"
-successMessages = ["Так точно!", "Да.", "Правильно!", "Всё верно!", "Так держать", "Кто умный? Ты умный!"]
-failureMessages = ["Неа.", "Нет, не так.", "Неверно", "Не огорчай меня", "Неправильно.", "Ой, неправильно"]
+successMessages = ["Так точно,", "Да,", "Правильно,", "Всё верно,", "Так держать,"]
+failureMessages = ["Неаю", "Нет, не так.", "Неверно", "Не огорчай меня.", "Неправильно.", "Ой, неправильно."]
 
 
 availableCommands = ["Начать", "Начать игру", "Выйти из игры"]
@@ -99,9 +99,11 @@ class User:
             self.generateWord()
             vk.messages.send(
                         peer_id=self.mentionID,
-                        message=f"Поставьте ударение в слове {word}",
+                        message=f"Поставьте ударение в слове '{''.join(self.word)}''",
                         random_id=random.getrandbits(32),
+                        keyboard=self.selectWordKeyboard.get_keyboard()
                     )
+    
             
     def quitGame(self):
         if self.gameIsActive is False:
@@ -135,23 +137,17 @@ class User:
                 self.selectWordKeyboard.add_line()
                 self.word[i] = self.word[i].lower()
         self.selectWordKeyboard.add_button("Выйти из игры", color=VkKeyboardColor.NEGATIVE)
-        print(self.selectWordKeyboard.get_keyboard())
-        vk.messages.send(
-                        peer_id=self.mentionID,
-                        message="Слова:",
-                        random_id=random.getrandbits(32),
-                        keyboard = self.selectWordKeyboard.get_keyboard()
-                            )    
-    
+        
     def checkAnswer(self, word):
         if word == self.rightWord:
             vk.messages.send(
                         peer_id=self.mentionID,
-                        message=f"{random.choice(successMessages)} Ударение в слове {self.rightWord} падает на {self.rightWord.index([symbol for symbol in self.rightWord if symbol.isupper() is True][0]) + 1} букву",
+                        message=f"{random.choice(successMessages)} ударение в слове {self.rightWord} падает на {self.rightWord.index([symbol for symbol in self.rightWord if symbol.isupper() is True][0]) + 1} букву",
                         random_id=random.getrandbits(32),
                         keyboard = self.selectWordKeyboard.get_keyboard()
                             )    
-            self.generateWord()
+            self.gameIsActive = False
+            self.startGame()
         else:
             vk.messages.send(
                         peer_id=self.mentionID,
