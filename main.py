@@ -76,11 +76,10 @@ server = Server(
 vk_session, vk, longpoll = server.connectToVKApi()
 
 def userIsExisting(mentionID):
-    if len(existingUsers) != 0:
-        for user in existingUsers:
-            if user.mentionID == mentionID:
-                return user
-    user = User(mentionID=mentionID)
+    for user in existingUsers:
+        if user.mentionID == mentionID:
+            return user
+    user = User(mentionID)
     existingUsers.append(user)
     return user
 
@@ -94,7 +93,6 @@ def eventHandler(event):
             thread.start()
             user = thread.join()
             if event.obj.message["text"] in availableCommands:
-                print(1)
                 Thread(
                     target=user.callAvailableCommands, args=(event.obj.message["text"],)
                 ).start()
