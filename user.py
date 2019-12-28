@@ -46,8 +46,7 @@ class User:
             vk.messages.send(
                 peer_id=self.mentionID,
                 message="Ты уже начал играть со мной. \n Хочешь выйти? Нажми на кнопку 'Выйти из игры'",
-                random_id=random.getrandbits(32),
-                keyboard=startGameKeyboard.get_keyboard(),
+                random_id=random.getrandbits(32)
             )
         else:
             self.gameIsActive = True
@@ -111,3 +110,7 @@ class User:
                 random_id=random.getrandbits(32),
                 keyboard=self.selectWordKeyboard.get_keyboard(),
             )
+            
+    def statsMaker(self):
+        username = vk.users.get(user_ids=self.mentionID)
+        print(username)
