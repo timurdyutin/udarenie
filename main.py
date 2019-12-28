@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import random
-import time
 from threading import Thread
 
 import vk_api
@@ -11,7 +10,7 @@ from messages import successMessages, failureMessages
 from commands import availableCommands
 from keyboards import startGameKeyboard
 from utils.rthread import rThread
-from server import Server, vk, vk_session, longpoll
+from server import vk_session, vk, longpoll
 from user import User
 
 existingUsers = []
