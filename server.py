@@ -19,3 +19,4 @@ server = Server(
     groupID=groupID,
 )
 vk_session, vk, longpoll = server.connectToVKApi()
+
