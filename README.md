@@ -5,14 +5,14 @@
 ### Установка
 1. Установите Python (3.8.0), pip и virtualenv на свой компьютер. Инструкции для этого зависят от вашей операционной системы (Linux, macOS, Windows), но в интернете есть много руководств, которые помогут вам начать работу.
 2. После того, как вы установили Python, pip, virtualenv на свой компьютер, вам нужно склонировать этот репозиторий:
-<git clone https://github.com/timurdyutin/udarenie.git>
+"""git clone https://github.com/timurdyutin/udarenie.git"""
 3.Потом перейдите в склонированную папку и сделайте следующее:
-<cd udarenie
+"""cd udarenie
 virtualenv venv
 source venv/bin/activate
-pip install -r requirements.txt>
+pip install -r requirements.txt"""
 4. После этого запустите скрипт <main.py>:
-<python main.py>
+"""python main.py --token --groupID"""
 
 
 
