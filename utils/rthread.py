@@ -1,5 +1,6 @@
 from threading import Thread
 
+
 class rThread(Thread):
     def __init__(
         self, group=None, target=None, name=None, args=(), kwargs={}, Verbose=None

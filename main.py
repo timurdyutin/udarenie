@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import random
 import time
 from threading import Thread
@@ -18,7 +17,6 @@ from user import User
 existingUsers = []
         
 def userIsExisting(mentionID):
-    print(10)
     for user in existingUsers:
         if user.mentionID == mentionID:
             return user
