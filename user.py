@@ -10,12 +10,15 @@ from messages import failureMessages, successMessages
 from server import longpoll, vk, vk_session
 from words import vowels, words
 
+achievements = {1: "Успешное начало", 5: "Отгадать пять слов", 10: "Отгадать 10 слов"}
+
 
 class User:
     def __init__(self, mentionID):
         self.mentionID = mentionID
         self.gameIsActive = False
         self.selectWordKeyboard = VkKeyboard(one_time=False)
+        self.guessedWordsCount = 0
         self.word = None
         self.rightWord = None
         self.wrongWords = []
@@ -98,6 +101,14 @@ class User:
             vk.messages.send(
                 peer_id=self.mentionID,
                 message=f"{random.choice(successMessages)} ударение в слове {self.rightWord} падает на {self.rightWord.index([symbol for symbol in self.rightWord if symbol.isupper() is True][0]) + 1} букву",
+                random_id=random.getrandbits(32),
+                keyboard=self.selectWordKeyboard.get_keyboard(),
+            )
+            self.guessedWordsCount += 1
+            if self.guessedWordsCount in achievements.keys():
+                vk.messages.send(
+                peer_id=self.mentionID,
+                message=f"Поздравляем! Получено новое достижение: {achievements[self.guessedWordsCount]}",
                 random_id=random.getrandbits(32),
                 keyboard=self.selectWordKeyboard.get_keyboard(),
             )
