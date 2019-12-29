@@ -108,7 +108,7 @@ class User:
             if self.guessedWordsCount in achievements.keys():
                 vk.messages.send(
                 peer_id=self.mentionID,
-                message=f"Поздравляем! Получено новое достижение: {achievements[self.guessedWordsCount]}.",
+                message=f"Поздравляем! Получено новое достижение: {achievements[self.guessedWordsCount]}",
                 random_id=random.getrandbits(32),
                 keyboard=self.selectWordKeyboard.get_keyboard(),
             )
