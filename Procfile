@@ -1,1 +1,1 @@
-worker: python main.py $PORT
+worker: python bot.py 70cb1f8026e1adf42d7e9534edab8c8ca8e6c0796f23fa71ab338f196b7f2d853182b179d13c97f179acf 186661962 $PORT
