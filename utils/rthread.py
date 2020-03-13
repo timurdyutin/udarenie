@@ -1,5 +1,6 @@
 from threading import Thread
 
+"""Поток с возвращаемыми значениями"""
 
 class rThread(Thread):
     def __init__(
